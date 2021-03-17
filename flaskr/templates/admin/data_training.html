@@ -1,0 +1,146 @@
+<!-- Main Menu area End-->
+    <!-- Start Status area -->
+	{% extends 'base_admin.html' %}
+	{% block title %}Data Training{% endblock %}
+	{% block content %}
+<!-- Main Menu area End-->
+	<!-- Breadcomb area Start-->
+	<div class="breadcomb-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="breadcomb-list">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<div class="breadcomb-wp">
+									<div class="breadcomb-icon">
+										<i class="notika-icon notika-windows"></i>
+									</div>
+									<div class="breadcomb-ctn">
+										<h2>Tabel Data Training</h2>
+										<p>Tabel ini berisi data yang digunakan dalam pembuatan model.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcomb area End-->
+    <!-- Data Table area Start-->
+    <div class="data-table-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <div class="data-table-list">
+                        <div class="basic-tb-hd">
+                            <h2>Tabel Data Training</h2>
+                            <p>Real comment merupakan komentar yang didapatkan ari hasil scraping, after preprocessing merupakan data real comment yang telah mengalami proses preprocessing.</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Real Comment</th>
+                                        <th>After Preprocessing</th>
+                                        <th>Score</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                 {% for data in data %}
+                                    <tr>
+                                        <td>{{data.real_comment}}</td>
+                                        <td>{{data.after_prepro}}</td>
+                                        <td>{{data.score}}</td>
+                                        <td><form method="post" action="{{url_for('admin.data_training')}}">
+                                            <button class="btn btn-primary notika-btn-primary waves-effect" type="submit" name="update" value="{{data.id}}">Edit</button>
+                                            <button class="btn btn-danger notika-btn-danger waves-effect" type="submit" style="margin-top:15px;" name="delete" value="{{data.id}}">Delete</button>
+                                            </form></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Real Comment</th>
+                                        <th>After Preprocessing</th>
+                                        <th>Score</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="contact-form sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                        <div class="contact-hd sm-form-hd">
+                            <h2>Form Tambah Data Training</h2>
+                            <p>Data yang ditambahkan akan digunakan dalam pembuatan model</p>
+                        </div>
+                        <script>
+                            function validateForm() {
+                              var x = document.forms["MyForm"]["message"].value;
+                              var y = document.forms["MyForm"]["score"].value;
+                              if (x == ""||y=="") {
+                                alert("Form Tidak Boleh Kosong");
+                                return false;
+                              }
+                            }
+                        </script>
+                        {% if data_update == None %}
+                        <form method="post" action="{{ url_for('admin.data_training') }}" onsubmit="return validateForm()" name="MyForm">
+                        <div class="contact-form-int">
+                            <div class="form-group">
+                                <div class="form-single nk-int-st widget-form">
+                                    <textarea name="message" class="form-control" placeholder="Kalimat"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-single nk-int-st widget-form">
+                                    <input name="score" type="text" class="form-control" placeholder="Score 0-3" />
+                                </div>
+                            </div>
+                            <div class="contact-btn">
+                                <button class="button btn">Submit</button>
+                            </div>
+                        </div>
+                        </form>
+                        {% else %}
+                        <form method="post" action="{{ url_for('admin.data_training') }}">
+                        <div class="contact-form-int">
+                            <div class="form-group">
+                                <div class="form-single nk-int-st widget-form">
+                                    <textarea name="message" class="form-control">{{data_update.real_comment}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-single nk-int-st widget-form">
+                                    <input name="score" type="text" class="form-control" value="{{data_update.score}}" />
+                                </div>
+                            </div>
+                            <div class="contact-btn">
+                                <input type="hidden" name="id" value="{{data_update.id}}">
+                                <button class="button btn">Button</button>
+                            </div>
+                        </div>
+                        </form>
+                        {% endif %}
+                        {% if message != None %}
+                        <div class="alert alert-success" role="alert" style="margin-top:15px;">
+                           {{message}}
+                        </div>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Data Table area End-->
+    <!-- Start Footer area-->
+	{% endblock %}

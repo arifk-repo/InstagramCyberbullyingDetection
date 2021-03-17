@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='admin/img/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/owl.transitions.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/meanmenu/meanmenu.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/scrollbar/jquery.mCustomScrollbar.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/notika-custom-icon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/responsive.css') }}">
+    <script src="{{ url_for('static', filename='admin/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+</head>
+<body>
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="logo-area">
+                        <a href="#"><img src="{{ url_for('static', filename='admin/img/logo/logo.png') }}" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="header-top-menu">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Top Area -->
+    <!-- Mobile Menu start -->
+    <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <ul class="mobile-menu-nav">
+                                <li><a href="{{ url_for('admin.index')}}">Home</a>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#demoevent" href="#">Kamus</a>
+                                    <ul id="demoevent" class="collapse dropdown-header-top">
+                                        <li><a href="{{ url_for('admin.perbaikan_kata')}}">Perbaikan Kata</a></li>
+<!--                                        <li><a href="{{ url_for('admin.emoji')}}">Emoji</a></li>-->
+<!--                                        <li><a href="{{ url_for('admin.emoticon')}}">Emoticon</a></li>-->
+                                    </ul>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#demodepart" href="#">Data Training</a>
+                                    <ul id="democrou" class="collapse dropdown-header-top">
+                                        <li><a href="{{url_for('admin.data_training')}}">Show Data</a></li>
+                                        <li><a href="{{url_for('admin.history_instagram')}}">History Analysis Instagram</a></li>
+                                        <li><a href="">History Analysis Text</a></li>
+                                    </ul>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#demolibra" href="#">Statistic</a>
+                                    <ul id="demolibra" class="collapse dropdown-header-top">
+                                        <li><a href="{{url_for('admin.barchart')}}">Bar Charts</a></li>
+                                        <li><a href="{{url_for('admin.linechart')}}">Line Charts</a></li>
+                                    </ul>
+                                </li>
+                                <li><a data-toggle="collapse" data-target="#demo" href="#">Model</a>
+                                    <ul id="demo" class="collapse dropdown-header-top">
+                                        <li><a href="{{url_for('admin.statistic_model')}}">Statistic Model</a></li>
+                                        <li><a href="form-components.html">New Model</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu end -->
+    <!-- Main Menu area start-->
+    <div class="main-menu-area mg-tb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                        <li class="active"><a href="{{ url_for('admin.index') }}"><i class="notika-icon notika-house"></i> Home</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#mailbox"><i class="fa fa-book"></i> Kamus</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Interface"><i class="fa fa-database"></i> Data Training</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Statistic</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Tables"><i class="fa fa-cog"></i> Model</a>
+                        </li>
+                        <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content custom-menu-content">
+                        <div id="mailbox" class="tab-pane notika-tab-menu-bg">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="{{ url_for('admin.perbaikan_kata')}}">Perbaikan Kata</a></li>
+<!--								<li><a href="{{ url_for('admin.emoji')}}">Emoji</a></li>-->
+<!--                                <li><a href="{{ url_for('admin.emoticon')}}">Emoticon</a></li>-->
+                            </ul>
+                        </div>
+                        <div id="Interface" class="tab-pane notika-tab-menu-bg">
+                            <ul class="notika-main-menu-dropdown">
+								<li><a href="{{url_for('admin.data_training')}}">Show Data</a></li>
+								<li><a href="{{url_for('admin.history_instagram')}}">History Analysis Instagram</a></li>
+								<li><a href="{{url_for('admin.history_analysis')}}">History Analysis Text</a></li>
+                            </ul>
+                        </div>
+                        <div id="Charts" class="tab-pane notika-tab-menu-bg">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="{{url_for('admin.barchart')}}">Bar Charts</a>
+                                </li>
+                                <li><a href="{{url_for('admin.linechart')}}">Line Charts</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="Tables" class="tab-pane notika-tab-menu-bg">
+                            <ul class="notika-main-menu-dropdown">
+                                <li><a href="{{url_for('admin.statistic_model')}}">Statistic Model</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	{% block content %}
+	{% endblock %}
+    <!-- End Realtime sts area-->
+    <!-- Start Footer area-->
+    <div class="footer-copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p>2020 All right reserved by Arif Kurniawan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer area-->
+    <script src="{{ url_for('static', filename='admin/js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/charts/Chart.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/charts/bar-chart.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/charts/chart-costum.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/charts/line-chart.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='admin/js/meanmenu/jquery.meanmenu.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/counterup/jquery.counterup.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/counterup/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/counterup/counterup-active.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/todo/jquery.todo.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/plugins.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/data-table/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/data-table/data-table-act.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/main.js') }}"></script>
+</body>
+
+</html>

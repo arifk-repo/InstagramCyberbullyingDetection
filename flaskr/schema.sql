@@ -1,0 +1,64 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE typo (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  false TEXT NOT NULL,
+  true TEXT NOT NULL
+);
+
+CREATE TABLE emoji (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  false TEXT NOT NULL,
+  true TEXT NOT NULL
+);
+
+CREATE TABLE emoticon (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  false TEXT NOT NULL,
+  true TEXT NOT NULL
+);
+
+CREATE TABLE source_history(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source TEXT UNIQUE NOT NULL,
+    image TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE text_analysis(
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   teks TEXT NOT NULL,
+   result TEXT NOT NULL
+);
+
+CREATE TABLE post (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE history_instagram (
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    url      TEXT    NOT NULL,
+    score    TEXT    NOT NULL,
+	username TEXT NOT NULL,
+    comments TEXT,
+    valid    BOOLEAN NOT NULL
+);
+
+CREATE TABLE data_training (
+    id           INTEGER PRIMARY KEY,
+    real_comment TEXT    NOT NULL,
+    after_prepro TEXT    NOT NULL
+                         DEFAULT none,
+    score        INTEGER NOT NULL
+);

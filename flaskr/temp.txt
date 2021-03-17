@@ -1,0 +1,31 @@
+@staticmethod
+    def word2vec():
+        with codecs.open('clear_traincoba.csv', 'r') as f:
+            for line in f:
+                tweet = f.readlines()
+                tokenized_sent = [word_tokenize(i) for i in tweet]
+                # for i in tokenized_sent:
+                #     print(i)
+        model = Word2vec.Word2Vec(
+            tokenized_sent, min_count=1, size=200, window=1, sg=0)
+        model.wv.save_word2vec_format(
+            'model/model_word2vecWindow.txt', binary=False)
+        word = list(model.wv.vocab)
+        # embeddings_index = dict()
+        # # f = open('mymodel/idwiki_word2vec_200.model',encoding='utf-8')
+        # f = open('model/model_word2vecWindow.txt')
+        # for line in f:
+        #     values = line.split()
+        #     word = values[0]
+        #     coefs = asarray(values[1:], dtype='float32')
+        #     embeddings_index[word] = coefs
+        # f.close()
+        # print('Loaded %s word vectors.' % len(embeddings_index))
+        #
+        # # # create a weight matrix for words in training docs
+        # embedding_matrix = zeros((self.vocab_size, 200))
+        # for word, i in self.tokenizer.word_index.items():
+        #     embedding_vector = embeddings_index.get(word)
+        #     if embedding_vector is not None:
+        #         embedding_matrix[i] = embedding_vector
+

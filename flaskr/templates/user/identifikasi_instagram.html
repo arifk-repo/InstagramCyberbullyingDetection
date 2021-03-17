@@ -1,0 +1,141 @@
+<!-- Main Menu area End-->
+    <!-- Start Status area -->
+	{% extends 'base_user.html' %}
+	{% block title %}Home{% endblock %}
+	{% block content %}
+
+
+<!-- Tooltips area Start-->
+    <div class="tooltips-area" style="margin-top:20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="tooltips-inner">
+                        <div class="tooltips-hd tooltips-hdn">
+                            <h2>Analisa Komentar</h2>
+                            <p>Komentar yang dimasukan akan diproses dan disesuaikan dengan data pada system untuk mendapatkan hasil klasifikasi</p>
+                        </div>
+<!--                        <div class="tooltips-ctn" style="background-color:red">-->
+<!--                            <h4>Komentar Anda Termasuk Komentar Cyberbullying.</h4>-->
+<!--                            <p>Tight pants next level <a href="#" data-toggle="tooltip" title="Another tooltip">keffiyeh</a> you probably haven't heard of them. Photo booth beard raw denim <a href="#" data-toggle="tooltip" title="Another tooltip">letterpress</a> vegan messenger bag stumptown. Farm-to-table seitan, mcsweeney's fixie sustainable quinoa 8-bit american apparel have a terry richardson vinyl <a href="#" data-toggle="tooltip" title="Another one here too">chambray</a>. Beard stumptown, cardigans banh mi lomo thundercats. Tofu biodiesel williamsburg marfa, four loko mcsweeney's cleanse vegan chambray. A really ironic artisan whatever keytar, <a href="#" data-toggle="tooltip" title="Another one here too">scenester</a> farm-to-table banksy Austin twitter handle freegan cred raw denimangersa single-origin coffee viral.</p>-->
+<!--                        </div>-->
+                        <form action="{{url_for('user.instagram')}}" method="post" onsubmit="return CheckPassword()" name="MyForm">
+                        <div class="contact-form-int">
+                                <div class="form-group">
+                                <div class="form-single nk-int-st widget-form">
+                                    <input name="url" type="text" class="form-control" placeholder="Masukan URL post instagram"/>
+                                </div>
+                                <div class="contact-btn">
+                                <button class="button btn" style="margin-top:15px;">Analisa Postingan</button>
+                            </div>
+                            </div>
+                        </div>
+                        </form>
+                        <script>
+                        function CheckPassword()
+                        {
+                            var x = document.forms["MyForm"]["url"].value;
+                            var passw=  "https://www.instagram.com/p/";
+                            var passw2="www.instagram.com/p/";
+                            var passw3="instagram.com/p/";
+                            if (x == "") {
+                                alert("Form Tidak Boleh Kosong");
+                                return false;
+                            }else{
+                                if(x.match(passw)||x.match(passw2)||x.match(passw3))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    alert("Yang Anda Inputkan Bukan Halaman Instagram")
+                                    return false;
+                                }
+                            }
+                        }
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tooltips area End-->
+
+<!-- Start Email Statistic area-->
+    <div class="notika-email-post-area" style="margin-top:20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                    <div class="data-table-list">
+                        <div class="basic-tb-hd">
+                            <h2>Data Pengujian</h2>
+                            <p>hasil pengujian dari postingan akan muncul pada tabel dibawah ini.</p>
+                        </div>
+                        <div class="table-responsive">
+                            {% if result!=None %}
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>username</th>
+                                        <th>komentar</th>
+                                        <th>klasifikasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {%for data in result%}
+                                {% if data.valid!="invalid" %}
+                                    <tr>
+                                        <td><img src="{{data.image}}" style="width:50px;height:50px;border-radius:50%;">  {{data.username}}</td>
+                                        <td>{{data.comments}}</td>
+                                        <td>{{data.score}}</td>
+                                    </tr>
+                                {% endif %}
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>username</th>
+                                        <th>komentar</th>
+                                        <th>klasifikasi</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            {% else %}
+                            <h3>
+                                Tidak ada data tersedia
+                            </h3>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="recent-post-wrapper notika-shadow sm-res-mg-t-30 tb-res-ds-n dk-res-ds">
+                        <div class="recent-post-ctn">
+                            <div class="recent-post-title">
+                                <h2>Recent Posts</h2>
+                            </div>
+                        </div>
+                        <div class="recent-post-items">
+                            {%for data in data_other%}
+                            <div class="recent-post-signle rct-pt-mg-wp">
+                                <a href="{{url_for('user.instagram',url2=data.url)}}">
+                                    <div class="recent-post-flex">
+                                        <div class="recent-post-it-ctn">
+                                            <h5>{{data.url}}</h5>
+                                            <p>jumlah data yang dapat didapatkan sejumlah {{data.jumlah}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Email Statistic area-->
+
+	{% endblock %}

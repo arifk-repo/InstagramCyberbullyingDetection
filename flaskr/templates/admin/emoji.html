@@ -1,0 +1,113 @@
+<!-- Main Menu area End-->
+    <!-- Start Status area -->
+	{% extends 'base_admin.html' %}
+	{% block title %}Emoji{% endblock %}
+	{% block content %}
+ <!-- Start Contact Info area-->
+<div class="contact-info-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+                 <div class="data-table-list">
+                        <div class="basic-tb-hd">
+                            <h2>Data Emoji</h2>
+                            <p>Penerjemahan emoji dilakukan untuk memberikan makna dari emoji yang digunakan, makna emoji bersumber dari <a href="https://unicode.org/emoji/charts/full-emoji-list.html#1f4a9">unicode.org</a></p>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Emoji</th>
+                                        <th>Arti</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in data %}
+                                    <tr>
+                                        <td>{{data.false}}</td>
+                                        <td>{{data.true}}</td>
+                                        <td><form method="post" action="{{url_for('admin.emoji')}}">
+                                            <button class="btn btn-primary notika-btn-primary waves-effect" type="submit" name="update" value="{{data.id}}">Edit</button>
+                                            <button class="btn btn-danger notika-btn-danger waves-effect" type="submit" name="delete" value="{{data.id}}">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                <div class="contact-form sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                    <div class="contact-hd sm-form-hd">
+                        <h2>Form Data Emoji</h2>
+                        <p>tambahkan/edit kata kedalam data, data dalam kamus emojid akan digunakan dalam tahapan text preprocessing dalam pembangunan model.</p>
+                    </div>
+                    <script>
+                            function validateForm() {
+                              var x = document.forms["MyForm"]["typo"].value;
+                              var y = document.forms["MyForm"]["correct"].value;
+                              if (x == ""||y=="") {
+                                alert("Form Tidak Boleh Kosong");
+                                return false;
+                              }
+                            }
+                        </script>
+                    {% if data_update == None %}
+                    <form method="post" action="{{ url_for('admin.emoji') }}" onsubmit="return validateForm()" name="MyForm">
+                    <div class="contact-form-int">
+                        <div class="form-group">
+                            <div class="form-single nk-int-st widget-form">
+                                <input type="text" class="form-control" placeholder="emoji" name="typo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-single nk-int-st widget-form">
+                                <input type="text" class="form-control" placeholder="makna" name="correct"/>
+                            </div>
+                        </div>
+                        <div class="contact-btn">
+                            <button class="button btn" type="submit">Submit</button>
+                        </div>
+                    </div>
+                    </form>
+                    {% else %}
+                    <form method="post" action="{{ url_for('admin.emoji') }}" name="MyForm" onsubmit="return validateForm()">
+                    <div class="contact-form-int">
+                        <div class="form-group">
+                            <div class="form-single nk-int-st widget-form">
+                                <input type="text" class="form-control" placeholder="Typo Word" name="typo" value="{{data_update.false}}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-single nk-int-st widget-form">
+                                <input type="text" class="form-control" placeholder="Correct Word" name="correct" value="{{data_update.true}}"/>
+                            </div>
+                        </div>
+                        <div class="contact-btn"><input type="hidden" name="id" value="{{data_update.id}}">
+                            <button class="button btn" type="submit">Button</button>
+                        </div>
+                    </div>
+                    </form>
+                    {% endif %}
+                    {% if message != None %}
+                    <div class="alert alert-success" role="alert" style="margin-top:15px;">
+                       {{message}}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contact Info area-->
+	{% endblock %}

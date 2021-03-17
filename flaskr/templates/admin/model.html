@@ -1,0 +1,155 @@
+<!-- Main Menu area End-->
+    <!-- Start Status area -->
+	{% extends 'base_admin.html' %}
+	{% block title %}Statistik Model{% endblock %}
+	{% block content %}
+ <!-- Start Contact Info area-->
+<div class="contact-info-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                 <div class="tooltips-inner">
+                        <div class="data-table-list">
+                        <div class="basic-tb-hd">
+                            <h2>Pengujian Data Test</h2>
+                            <p>Data yang disajikan adalah label dan hasil prediksi.</p>
+                        <div class="table-responsive">
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nomor</th>
+                                        <th>Score Data</th>
+                                        <th>Prediksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in range(data_y.row|length) %}
+                                    <tr>
+                                        <td>{{data_y.row[i]}}</td>
+                                        <td>{{data_y.true[i]}}</td>
+                                        <td>{{data_y.pred[i]}}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        </div></div>
+                     <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
+                        <div class="rc-it-ltd">
+                            <div class="recent-items-ctn">
+                                <div class="recent-items-title">
+                                    <h2>Confusion Matrix</h2>
+                                </div>
+                            </div>
+                            <div class="recent-items-inn">
+                                <table class="table table-inner table-vmiddle">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px">Param</th>
+                                            <th style="width: 60px">Cyberbullying</th>
+                                            <th style="width: 60px">Irrelevant</th>
+                                            <th style="width: 60px">Neutral</th>
+                                            <th style="width: 60px">Non Cyberbullying</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%for i in range(cf.row|length)%}
+                                        <tr>
+                                            <td class="f-500 c-cyan">{{cf.row[i]}}</td>
+                                            <td class="f-500 c-cyan">{{cf.Cyberbullying[i]}}</td>
+                                            <td class="f-500 c-cyan">{{cf.Irrelevant[i]}}</td>
+                                            <td class="f-500 c-cyan">{{cf.Netral[i]}}</td>
+                                            <td class="f-500 c-cyan">{{cf.NonCyberbullying[i]}}</td>
+                                        </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                 <div class="tooltips-inner">
+                        <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
+                        <div class="rc-it-ltd">
+                            <div class="recent-items-ctn">
+                                <div class="recent-items-title">
+                                    <h2>Classification Report</h2>
+                                </div>
+                            </div>
+                            <div class="recent-items-inn">
+                                <table class="table table-inner table-vmiddle">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px">Param</th>
+                                            <th style="width: 60px">Precision</th>
+                                            <th style="width: 60px">Recall</th>
+                                            <th style="width: 60px">F1-Score</th>
+                                            <th style="width: 60px">Support</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%for i in range(report.row|length)%}
+                                        <tr>
+                                            <td class="f-500 c-cyan">{{report.row[i]}}</td>
+                                            <td class="f-500 c-cyan">{{'%0.2f'|format(report.precision[i]|float)}}</td>
+                                            <td class="f-500 c-cyan">{{'%0.2f'|format(report.recall[i]|float)}}</td>
+                                            <td class="f-500 c-cyan">{{'%0.2f'|format(report.f1[i]|float)}}</td>
+                                            <td class="f-500 c-cyan">{{'%0.2f'|format(report.support[i]|float)}}</td>
+                                        </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="tooltips-static tooltips-cvn">
+                            <div class="stc-tlt-hd">
+								<h4>Statistik Training dan Validasi</h4>
+								<p>Grafik tersebut menggambarkan perbandingan accuracy dan val accuracy.</p>
+                            <script type="text/javascript">
+                            var label=[{% for item in data.epoch %}
+                                        {{item}},
+                                     {% endfor %}]
+                            var accuracy=[{% for item in data.accuracy %}
+                                        {{item}},
+                                     {% endfor %}]
+                            var val_accuracy=[{% for item in data.val_accuracy %}
+                                        {{item}},
+                                     {% endfor %}]
+                            var loss=[{% for item in data.loss %}
+                                        {{item}},
+                                     {% endfor %}]
+                            var val_loss=[{% for item in data.val_loss %}
+                                        {{item}},
+                                     {% endfor %}]
+                            </script>
+							</div>
+                            <div class="line-chart-wp chart-display-nn">
+                                <canvas height="140vh" width="180vw" id="linechartinterpolation"></canvas>
+                            </div>
+                        </div>
+                        <div class="tooltips-static tooltips-cvn">
+                            <div class="stc-tlt-hd">
+								<h4>Statistik Training dan Validasi</h4>
+								<p>Grafik dibawah menggambarkan perbandingan loss dan val loss.</p>
+							</div>
+                            <div class="line-chart-wp chart-display-nn">
+                                <canvas height="140vh" width="180vw" id="basiclinechart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contact Info area-->
+	{% endblock %}
